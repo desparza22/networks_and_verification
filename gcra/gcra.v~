@@ -1,0 +1,43 @@
+Require Import List.
+
+Fixpoint max (n m : nat) :=
+  match n, m with
+  | S n', S m' => S (max n' m')
+  | 0, _ => m
+  | _, 0 => n
+  end.
+
+Example max_test1 : max 3 4 = 4.
+Proof.
+  simpl.
+  reflexivity.
+Qed.
+
+Example max_test2 : max 5 0 = 5.
+Proof.
+  simpl.
+  reflexivity.
+Qed.
+
+Example max_test3 : max 0 0 = 0.
+Proof.
+  simpl.
+  reflexivity.
+Qed.
+
+Example max_test4 : max 4 4 = 4.
+Proof.
+  simpl.
+  reflexivity.
+Qed.
+
+Fixpoint gcra1_rec (l : list nat) (T tau last_t : nat) : bool :=
+  match l with
+  | [] => true
+  | h::t => (if (last_t + h + tau < T)
+            then false
+            else gcra1_rec t T tau (last_t + h))
+  end.
+
+Definition gcra1 (l : list nat) (T tau : n) : bool :=
+  gcra1_rec l T tau 0 0.
